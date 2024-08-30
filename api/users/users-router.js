@@ -22,9 +22,9 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:id', validateUserId, (req, res) => {
-  // RETURN THE USER OBJECT
-  // this needs a middleware to verify user id
+    res.json(req.user)
 });
+  // this needs a middleware to verify user id
 
 router.post('/', validateUser, (req, res, next) => {
   User.insert({name: req.name})
@@ -49,7 +49,7 @@ router.delete('/:id', validateUserId, async (req, res, next) => {
   // RETURN THE FRESHLY DELETED USER OBJECT
   try {
     await User.remove(req.params.id)
-    res.json(User)
+    res.json(req.user)
   }
   catch(err) {
     next(err)
